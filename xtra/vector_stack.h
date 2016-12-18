@@ -16,7 +16,7 @@ namespace xtra {
 
         VectorStack<A>();
 
-        VectorStack<A>(A[]);
+        VectorStack<A>(A *);
 
         ~VectorStack<A>();
 

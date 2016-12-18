@@ -13,6 +13,7 @@ TEST(VectorStackTest, ShouldBeEmpty) {
 
 TEST(VectorStackTest, InitWithVector) {
     int test_values[]{1, 2, 3};
+
     xtra::VectorStack<int> s(test_values);
     EXPECT_FALSE(s.empty());
 }

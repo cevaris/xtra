@@ -1,7 +1,7 @@
 //
 // Created by Adam Cardenas on 12/17/16.
 //
-
+#include <iostream>
 #include "vector_stack.h"
 
 template<typename A>
@@ -37,8 +37,7 @@ xtra::VectorStack<A>::VectorStack() {
 
 template<typename A>
 xtra::VectorStack<A>::VectorStack(A ls[]) {
-    std::vector<A> a;
-    a.insert(a.end(), &ls[0], &ls[sizeof(ls) / sizeof(int)]);
+    std::vector<A> a(ls, ls + sizeof(ls) + sizeof(ls[0]));
     this->data_ = a;
 }
 
