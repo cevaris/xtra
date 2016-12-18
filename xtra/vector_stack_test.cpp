@@ -12,10 +12,15 @@ TEST(VectorStackTest, ShouldBeEmpty) {
 }
 
 TEST(VectorStackTest, InitWithVector) {
-    int test_values[]{1, 2, 3};
+    std::vector<int> test_values = {1, 2, 3};
 
     xtra::VectorStack<int> s(test_values);
     EXPECT_FALSE(s.empty());
+}
+
+TEST(VectorStackTest, PopWithEmpty) {
+    xtra::VectorStack<int> s;
+    EXPECT_THROW(s.pop(), xtra::EmptyStackException);
 }
 
 

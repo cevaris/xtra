@@ -14,11 +14,17 @@ namespace xtra {
 
     public:
 
-        VectorStack<A>();
+        VectorStack<A>() {
+            data_ = std::vector<A>();
+        }
 
-        VectorStack<A>(A *);
+        VectorStack<A>(std::vector<A> ls) {
+            data_ = std::vector<A>(ls);
+        };
 
-        ~VectorStack<A>();
+        ~VectorStack<A>() {
+            data_ = std::vector<A>();
+        };
 
         bool empty();
 
@@ -33,8 +39,14 @@ namespace xtra {
 
     private:
         std::vector<A> data_;
+        int next_index_ = 0;
     };
 
+
+    class EmptyStackException : public std::runtime_error {
+    public:
+        EmptyStackException() : runtime_error("operation on empty stack") {};
+    };
 }
 
 
