@@ -5,6 +5,6 @@
 #ifndef XTRA_XTRA_H
 #define XTRA_XTRA_H
 
-#include "array_stack.cpp"
+#include "vector_stack.cpp"
 
 #endif //XTRA_XTRA_H
