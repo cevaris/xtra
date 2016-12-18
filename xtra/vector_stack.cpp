@@ -4,6 +4,10 @@
 #include <iostream>
 #include "vector_stack.h"
 
+template<typename A>
+unsigned long xtra::VectorStack<A>::size() {
+    return curr_size_;
+}
 
 template<typename A>
 bool xtra::VectorStack<A>::empty() {
@@ -42,6 +46,11 @@ A xtra::VectorStack<A>::push(A a) {
     return a;
 }
 
+/**
+ * @tparam A
+ * @param a
+ * @return 1-based current position in stack
+ */
 template<typename A>
 int xtra::VectorStack<A>::search(A a) {
     auto it = std::find(data_.begin(), data_.end(), a);
@@ -49,8 +58,7 @@ int xtra::VectorStack<A>::search(A a) {
         return -1;
 
     } else {
-        // index value in 1-based not 0-based
-        return std::distance(data_.begin(), it) + 1;
+        return data_.size() - std::distance(data_.begin(), it);
     }
 }
 

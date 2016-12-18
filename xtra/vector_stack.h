@@ -44,8 +44,9 @@ namespace xtra {
 
         A pop();
 
-
         A push(A);
+
+        unsigned long size();
 
         int search(A);
 

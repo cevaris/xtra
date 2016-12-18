@@ -9,7 +9,7 @@ enable_testing()
 include_directories(/usr/local/include)
 target_link_libraries(xtra /usr/local/lib/libgtest.a)
 
-set(BENCHMARK_SOURCE_FILES xtra/xtra.h xtra/vector_stack_benchmark.cpp)
+set(BENCHMARK_SOURCE_FILES xtra/xtra.h xtra/xtra_benchmark.cpp)
 add_executable(benchmark_xtra ${BENCHMARK_SOURCE_FILES})
 include_directories(/usr/local/include)
 target_link_libraries(benchmark_xtra /usr/local/lib/libbenchmark.a)
