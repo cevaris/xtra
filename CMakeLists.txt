@@ -12,7 +12,7 @@ file(GLOB SOURCE_FILES
         "xtra/*.cpp"
         "xtra/*_test.cpp"
         )
-add_executable(xtra_test ${SOURCE_FILES})
+add_executable(xtra_test ${SOURCE_FILES} xtra/exceptions.h)
 
 target_link_libraries(xtra_test /usr/local/lib/libgtest.a)
 

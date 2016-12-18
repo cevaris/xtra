@@ -8,21 +8,41 @@
 
 #include <chrono>
 #include <vector>
+#include <array>
+#include "exceptions.h"
 
 namespace xtra {
 
-    template<typename E>
+    template<typename E, size_t N>
     class ArrayBlockingQueue {
 
     public:
 
-        ArrayBlockingQueue() {};
+        ArrayBlockingQueue<E, N>() {
+            data_ = std::array<E, N>();
+        };
 
-        ArrayBlockingQueue(int capacity) {};
+        ArrayBlockingQueue<E, N>(std::array<E, N> c) {
+            if (N < c.size()) {
+                throw IllegalArgumentException("not enough capacity");
+            }
 
-        ArrayBlockingQueue(int capacity, bool fair) {};
+            // new array with size N
+            data_ = std::array<E, N>();
+            // foreach new input element, add to queue
+            for (const auto &e : c) {
+                add(e);
+            }
+        };
 
-        ArrayBlockingQueue(int capacity, bool fair, std::vector<E> c) {};
+        ArrayBlockingQueue(int capacity, bool fair) {
+            throw std::runtime_error("Not Implemented");
+        };
+
+        ArrayBlockingQueue(int capacity, bool fair, std::vector<E> c) {
+            throw std::runtime_error("Not Implemented");
+        };
+
 
         bool add(E e);
 
@@ -38,7 +58,7 @@ namespace xtra {
 
         bool offer(E e, long timeout, std::chrono::duration<long> unit);
 
-        E peak();
+        E peek();
 
         E poll();
 
@@ -48,7 +68,7 @@ namespace xtra {
 
         bool remove(E e);
 
-        int size();
+        unsigned int size();
 
         E take();
 
@@ -56,6 +76,14 @@ namespace xtra {
 
         bool is_empty();
 
+        std::string to_string();
+
+    private:
+
+        std::array<E, N> data_;
+        unsigned int head_idx_ = 0;
+        unsigned int tail_idx_ = 0;
+        unsigned int curr_size_ = 0;
 
     };
 
