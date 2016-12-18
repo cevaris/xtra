@@ -6,5 +6,6 @@
 #define XTRA_XTRA_H
 
 #include "vector_stack.cpp"
+#include "array_blocking_queue.cpp"
 
 #endif //XTRA_XTRA_H
