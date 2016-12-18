@@ -11,36 +11,41 @@
 #include <sstream>
 #include <thread>
 
-double CalculatePi(int depth) {
-    double pi = 0.0;
-    for (int i = 0; i < depth; ++i) {
-        double numerator = static_cast<double>(((i % 2) * 2) - 1);
-        double denominator = static_cast<double>((2 * i) - 1);
-        pi += numerator / denominator;
-    }
-    return (pi - 1.0) * 4;
+xtra::VectorStack<int> PushPopVectorStack(int size) {
+    xtra::VectorStack<int> s;
+    for (int i = 0; i < size; ++i) s.push(i);
+    for (int i = 0; i < size; ++i) s.pop();
+    return s;
 }
 
-static void BM_CalculatePiRange(benchmark::State &state) {
-    double pi = 0.0;
-    while (state.KeepRunning()) pi = CalculatePi(state.range(0));
-    std::stringstream ss;
-    ss << pi;
-    state.SetLabel(ss.str());
-}
-
-BENCHMARK_RANGE(BM_CalculatePiRange, 1, 1024 * 1024);
-
-static void BM_CalculatePi(benchmark::State &state) {
-    static const int depth = 1024;
+static void BM_PushPopVectorStackRange(benchmark::State &state) {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(CalculatePi(depth));
+        benchmark::DoNotOptimize(PushPopVectorStack(state.range(0)));
     }
+    state.SetItemsProcessed(state.iterations() * state.range(0));
+    state.SetBytesProcessed(state.iterations() * state.range(0) * sizeof(int));
 }
 
-BENCHMARK(BM_CalculatePi)->Threads(8);
-BENCHMARK(BM_CalculatePi)->ThreadRange(1, 32);
-BENCHMARK(BM_CalculatePi)->ThreadPerCpu();
+BENCHMARK(BM_PushPopVectorStackRange)->Range(1 << 10, 512 << 10);
 
+int SearchVectorStack(xtra::VectorStack<int> s, int item) {
+    return s.search(item);
+}
+
+static void BM_SearchVectorStackRange(benchmark::State &state) {
+    while (state.KeepRunning()) {
+        xtra::VectorStack<int> s;
+
+        state.PauseTiming();
+        for (int i = 0; i < state.range(0); ++i) s.push(i);
+        state.ResumeTiming();
+
+        benchmark::DoNotOptimize(SearchVectorStack(s, state.range(0) - 1));
+    }
+    state.SetItemsProcessed(state.iterations() * state.range(0));
+    state.SetBytesProcessed(state.iterations() * state.range(0) * sizeof(int));
+}
+
+BENCHMARK(BM_SearchVectorStackRange)->Range(1 << 10, 512 << 10);
 
 BENCHMARK_MAIN();
