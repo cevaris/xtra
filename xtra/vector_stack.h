@@ -9,6 +9,17 @@
 
 namespace xtra {
 
+    /*
+     * Vector based Stack implementation, referenced from Java Stack
+     * https://docs.oracle.com/javase/8/docs/api/java/util/Stack.html
+     *
+     * O(1): empty
+     * O(1): pop
+     * O(1): push
+     * O(1): peek
+     * O(n): search
+     *
+     */
     template<typename A>
     class VectorStack {
 
@@ -20,6 +31,7 @@ namespace xtra {
 
         VectorStack<A>(std::vector<A> ls) {
             data_ = std::vector<A>(ls);
+            curr_size_ = ls.size();
         };
 
         ~VectorStack<A>() {
@@ -39,7 +51,7 @@ namespace xtra {
 
     private:
         std::vector<A> data_;
-        int next_index_ = 0;
+        unsigned long curr_size_ = 0;
     };
 
 

@@ -12,16 +12,86 @@ TEST(VectorStackTest, ShouldBeEmpty) {
 }
 
 TEST(VectorStackTest, InitWithVector) {
-    std::vector<int> test_values = {1, 2, 3};
+    std::vector<int> test_data = {1, 2, 3};
 
-    xtra::VectorStack<int> s(test_values);
+    xtra::VectorStack<int> s(test_data);
     EXPECT_FALSE(s.empty());
 }
 
-TEST(VectorStackTest, PopWithEmpty) {
+TEST(VectorStackTest, InitWithEmptyVector) {
+    std::vector<int> test_data;
+
+    xtra::VectorStack<int> s(test_data);
+    EXPECT_TRUE(s.empty());
+}
+
+TEST(VectorStackTest, HandleEmptyIterator) {
     xtra::VectorStack<int> s;
+    EXPECT_THROW(s.peek(), xtra::EmptyStackException);
+    EXPECT_THROW(s.pop(), xtra::EmptyStackException);
+
+    int does_not_exist = 1;
+    EXPECT_EQ(s.search(does_not_exist), -1);
+}
+
+TEST(VectorStackTest, PeekSuccessfully) {
+    std::vector<int> test_data = {1, 2, 3};
+    xtra::VectorStack<int> s(test_data);
+
+    EXPECT_EQ(s.peek(), 3);
+    // test peek does not pop head element
+    EXPECT_EQ(s.peek(), 3);
+}
+
+TEST(VectorStackTest, PopSuccessfully) {
+    std::vector<int> test_data = {1, 2, 3};
+    xtra::VectorStack<int> s(test_data);
+
+    EXPECT_EQ(s.pop(), 3);
+    EXPECT_EQ(s.pop(), 2);
+    EXPECT_EQ(s.pop(), 1);
     EXPECT_THROW(s.pop(), xtra::EmptyStackException);
 }
 
+TEST(VectorStackTest, SearchSuccessfully) {
+    std::vector<int> test_data = {1, 2, 3};
+    xtra::VectorStack<int> s(test_data);
+
+    // search result is 1-based
+    EXPECT_EQ(s.search(1), 1);
+    EXPECT_EQ(s.search(2), 2);
+    EXPECT_EQ(s.search(3), 3);
+
+    // not found
+    EXPECT_EQ(s.search(4), -1);
+}
+
+TEST(VectorStackTest, PushPeekPopSuccessfully) {
+    xtra::VectorStack<int> s;
+
+    EXPECT_EQ(s.push(1), 1);
+    EXPECT_EQ(s.push(2), 2);
+
+    EXPECT_EQ(s.peek(), 2);
+    EXPECT_EQ(s.peek(), 2);
+
+    EXPECT_EQ(s.pop(), 2);
+    EXPECT_EQ(s.pop(), 1);
+    EXPECT_THROW(s.pop(), xtra::EmptyStackException);
+}
+
+TEST(VectorStackTest, HandleLargeStack) {
+    xtra::VectorStack<int> s;
+
+    EXPECT_EQ(s.push(1), 1);
+    EXPECT_EQ(s.push(2), 2);
+
+    EXPECT_EQ(s.peek(), 2);
+    EXPECT_EQ(s.peek(), 2);
+
+    EXPECT_EQ(s.pop(), 2);
+    EXPECT_EQ(s.pop(), 1);
+    EXPECT_THROW(s.pop(), xtra::EmptyStackException);
+}
 
 
