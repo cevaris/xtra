@@ -7,9 +7,19 @@
 
 #include <stdexcept>
 
-class IllegalArgumentException : public std::runtime_error {
-public:
-    IllegalArgumentException(const std::string &msg) : runtime_error(msg) {};
-};
+namespace xtra {
+    class IllegalArgumentException : public std::runtime_error {
+    public:
+
+        IllegalArgumentException(const std::string &msg) :
+                runtime_error(msg) {};
+    };
+
+    class IllegalStateException : public std::runtime_error {
+    public:
+
+        IllegalStateException(const std::string &msg) : runtime_error(msg) {};
+    };
+}
 
 #endif //XTRA_EXCEPTIONS_H
