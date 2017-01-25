@@ -12,6 +12,7 @@ addons:
       - kalakris-cmake
 
 script:
+  - ./scripts/install-cmake.sh
   - mkdir build
   - cd build
   - cmake ..
