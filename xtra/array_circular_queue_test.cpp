@@ -59,6 +59,7 @@ TEST(ArrayCircularQueueTest, ShouldPeek) {
     for (int i = 0; i < COUNT; i++) {
         int j;
         s.peek(j);
+        // should always return first element
         EXPECT_EQ(j, 0);
     }
 }
