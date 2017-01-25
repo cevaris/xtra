@@ -30,27 +30,33 @@ unsigned int xtra::ArrayCircularQueue<E, N>::size() {
 template<typename E, size_t N>
 void xtra::ArrayCircularQueue<E, N>::clear() {
     data_ = std::array<E, N>();
+    curr_size_ = 0;
 }
 
 template<typename E, size_t N>
-E xtra::ArrayCircularQueue<E, N>::pop() {
+void xtra::ArrayCircularQueue<E, N>::pop(E &e) {
     if (is_empty()) {
-        throw IllegalStateException("queue is empty");
+        return;
     }
 
-    E e = data_[ptr_read_];
+    e = data_[ptr_read_];
     circular_inc(ptr_read_);
     curr_size_--;
-
-    return e;
 }
 
 template<typename E, size_t N>
-unsigned int xtra::ArrayCircularQueue<E, N>::circular_inc(unsigned int &ptr) {
+void xtra::ArrayCircularQueue<E, N>::peek(E &e) {
+    if (is_empty()) {
+        return;
+    }
+    e = data_[ptr_read_];
+}
+
+template<typename E, size_t N>
+void xtra::ArrayCircularQueue<E, N>::circular_inc(unsigned int &ptr) {
     if (ptr == N - 1) {
         ptr = 0;
     } else {
         ptr++;
     }
-    return ptr;
 }

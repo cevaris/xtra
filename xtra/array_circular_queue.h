@@ -38,11 +38,9 @@ namespace xtra {
 
         bool offer(E e);
 
-        bool remove(unsigned int);
+        void peek(E &e);
 
-        E peek();
-
-        E pop();
+        void pop(E &e);
 
         unsigned int size();
 
@@ -57,7 +55,7 @@ namespace xtra {
         unsigned int ptr_write_ = 0;
 
 
-        unsigned int circular_inc(unsigned int &ptr);
+        void circular_inc(unsigned int &ptr);
     };
 
 }
