@@ -5,8 +5,11 @@ language:
 
 addons:
   apt:
+    packages:
+      - cmake
     sources:
       - ubuntu-toolchain-r-test
+      - kalakris-cmake
 
 script:
   - mkdir build
