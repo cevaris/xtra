@@ -16,6 +16,10 @@ add_executable(xtra_test ${SOURCE_FILES})
 
 target_link_libraries(xtra_test /usr/local/lib/libgtest.a)
 
-set(BENCHMARK_SOURCE_FILES xtra/xtra.h xtra_benchmark.cpp)
-add_executable(xtra_benchmark ${BENCHMARK_SOURCE_FILES})
-target_link_libraries(xtra_benchmark /usr/local/lib/libbenchmark.a)
+
+option(WITH_BENCHMARK "with benchmark test" ON)
+if(WITH_BENCHMARK)
+    set(BENCHMARK_SOURCE_FILES xtra/xtra.h xtra_benchmark.cpp)
+    add_executable(xtra_benchmark ${BENCHMARK_SOURCE_FILES})
+    target_link_libraries(xtra_benchmark /usr/local/lib/libbenchmark.a)
+endif(WITH_BENCHMARK)

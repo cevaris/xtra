@@ -16,10 +16,9 @@ before_install:
 
 script:
   - mkdir build && cd build
-  - cmake ..
+  - cmake -DWITH_BENCHMARK=OFF ..
   - make
   - ./xtra_test
-  - ./xtra_benchmark
 
 push.defaultnotifications:
-  email: true
+  email: false
